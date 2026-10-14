@@ -125,6 +125,15 @@ class Game : GameSession {
      */
     fun castSpell(): Boolean {
         // TODO: Completar la lógica de disparo
-        return false
+        if (spell.casts <= 0) return false
+
+        spell.casts -= 1
+        val spellInGame = createSpell()
+        val dir = vectorFromAngle(spell.targetAngle)
+        spellInGame.vx = dir.x * spell.basePower
+        spellInGame.vy = dir.y * spell.basePower
+        spawn(spellInGame, player.x, player.y)
+
+        return true
     }
 }
